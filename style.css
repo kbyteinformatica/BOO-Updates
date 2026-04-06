@@ -1,0 +1,172 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@800&family=Syne:wght@400;600;800&display=swap');
+
+:root {
+    --primary: #a855f7; /* Purple Aura */
+    --accent: #d8b4fe;
+    --bg-dark: #020617;
+    --glass-bg: rgba(15, 23, 42, 0.3);
+    --glass-border: rgba(255, 255, 255, 0.05);
+    --text-primary: #f8fafc;
+    --text-secondary: #94a3b8;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--bg-dark);
+    color: var(--text-primary);
+    font-family: 'Syne', sans-serif;
+    overflow-x: hidden;
+    min-height: 100vh;
+}
+
+/* Spline Container */
+#spline-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    background: radial-gradient(circle at 50% 50%, #1e1b4b 0%, #020617 100%);
+}
+
+/* Overlay / Interface */
+.nav-container {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    padding: 2rem 10%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 100;
+}
+
+.brand {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 2.5rem;
+    font-weight: 800;
+    letter-spacing: -2px;
+    background: linear-gradient(to bottom, #fff, #a855f7);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 0 15px rgba(168, 85, 247, 0.5));
+}
+
+.hero-main {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 0 5%;
+}
+
+.glass-box {
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border);
+    padding: 3rem;
+    border-radius: 2.5rem;
+    max-width: 800px;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.8);
+}
+
+h2 {
+    font-size: clamp(2rem, 8vw, 4rem);
+    font-weight: 800;
+    margin-bottom: 1rem;
+    line-height: 0.9;
+}
+
+.tagline {
+    font-size: 1.25rem;
+    color: var(--text-secondary);
+    margin-bottom: 3rem;
+    max-width: 500px;
+}
+
+/* Action Button */
+.cta-ghost {
+    position: relative;
+    padding: 1.5rem 4rem;
+    background: white;
+    color: black;
+    text-decoration: none;
+    font-weight: 800;
+    border-radius: 100px;
+    font-size: 1.1rem;
+    transition: 0.4s cubic-bezier(0.19, 1, 0.22, 1);
+    border: 2px solid white;
+}
+
+.cta-ghost:hover {
+    background: transparent;
+    color: white;
+    box-shadow: 0 0 30px var(--primary);
+    transform: scale(1.05);
+}
+
+/* Feature Grid */
+.features-section {
+    padding: 100px 10%;
+    position: relative;
+    background: linear-gradient(to bottom, transparent, var(--bg-dark));
+}
+
+.card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+}
+
+.card-frosted {
+    background: rgba(255, 255, 255, 0.02);
+    backdrop-filter: blur(10px);
+    border-radius: 2rem;
+    border: 1px solid var(--glass-border);
+    padding: 2.5rem;
+    transition: 0.3s;
+}
+
+.card-frosted:hover {
+    background: rgba(168, 85, 247, 0.05);
+    border-color: var(--primary);
+    transform: translateY(-5px);
+}
+
+.card-frosted h3 {
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+}
+
+.card-frosted p {
+    color: var(--text-secondary);
+    font-size: 1rem;
+}
+
+footer {
+    padding: 4rem 10%;
+    text-align: center;
+    border-top: 1px solid var(--glass-border);
+    opacity: 0.5;
+}
+
+/* Splash Glow */
+.aura-glow {
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    background: var(--primary);
+    filter: blur(150px);
+    border-radius: 50%;
+    z-index: -1;
+    pointer-events: none;
+}

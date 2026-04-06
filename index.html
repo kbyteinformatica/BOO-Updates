@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BOO | Invisibility by Design</title>
+    <meta name="description" content="BOO: O mensageiro P2P que não deixa rastros. Simples, invisível, eterno.">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Dynamic 3D Scene Layer -->
+    <div id="spline-container">
+        <script type="module" src="https://unpkg.com/@splinetool/viewer@1.3.1/build/spline-viewer.js"></script>
+        <spline-viewer url="https://prod.spline.design/i9-9S9nscCstKioU/scene.splinecode"></spline-viewer>
+    </div>
+
+    <!-- Navigation -->
+    <div class="nav-container">
+        <div class="brand">BOO</div>
+        <a href="https://raw.githubusercontent.com/kbyteinformatica/BOO-Updates/main/BOO-1.2.apk" class="cta-ghost" style="padding: 0.8rem 2rem; font-size: 0.9rem;">OBTER</a>
+    </div>
+
+    <!-- Main Entry -->
+    <main class="hero-main">
+        <div class="glass-box">
+            <h2 style="font-family: 'Montserrat', sans-serif;">Nada fica.<br>Só o BOO.</h2>
+            <p class="tagline">O mensageiro onde as mensagens pertencem apenas a quem as lê. Sem servidores. Sem nuvem. Sem rastros.</p>
+            <a href="https://raw.githubusercontent.com/kbyteinformatica/BOO-Updates/main/BOO-1.2.apk" class="cta-ghost">
+                DOWNLOAD v1.2
+            </a>
+        </div>
+    </main>
+
+    <!-- Details -->
+    <section class="features-section">
+        <div class="card-grid">
+            <div class="card-frosted">
+                <h3>Invisível</h3>
+                <p>Nenhuma mensagem passa por um servidor central. É você e seu contato, direto.</p>
+            </div>
+            <div class="card-frosted">
+                <h3>Efêmero</h3>
+                <p>Dados que não foram guardados não podem ser hackeados. O BOO limpa tudo automaticamente.</p>
+            </div>
+            <div class="card-frosted">
+                <h3>Criptografado</h3>
+                <p>SQLCipher 4.6.1 protege o seu banco de dados local com o que há de mais moderno.</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>BOO © 2026. A evolução da privacidade P2P.</p>
+    </footer>
+
+    <!-- Background Glow Effect (following cursor) -->
+    <div class="aura-glow" id="cursor-glow"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>
