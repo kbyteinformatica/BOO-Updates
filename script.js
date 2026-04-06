@@ -45,7 +45,7 @@ const translations = {
 
 function setLang(lang) {
     const data = translations[lang];
-    
+
     document.getElementById('manifesto-hook').innerText = data.manifesto;
     document.getElementById('label-security').innerText = data.labelSecurity;
     document.getElementById('title-security').innerText = data.titleSecurity;
@@ -74,7 +74,7 @@ window.addEventListener('DOMContentLoaded', () => {
     panel.style.opacity = '0';
     panel.style.transform = 'translateY(50px)';
     panel.style.transition = 'all 1.2s cubic-bezier(0.19, 1, 0.22, 1)';
-    
+
     setTimeout(() => {
         panel.style.opacity = '1';
         panel.style.transform = 'translateY(0)';

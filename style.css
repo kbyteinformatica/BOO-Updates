@@ -40,7 +40,7 @@ body {
     width: 100%;
     height: 100%;
     background: radial-gradient(circle at 20% 30%, #1e1b4b 0%, transparent 50%),
-                radial-gradient(circle at 80% 70%, #2e1065 0%, transparent 50%);
+        radial-gradient(circle at 80% 70%, #2e1065 0%, transparent 50%);
     z-index: -3;
 }
 
@@ -181,6 +181,11 @@ nav {
 
 /* Mobile Adjustments */
 @media (max-width: 768px) {
-    .dossier-panel { padding: 2rem; }
-    .hero-title { font-size: 5rem; }
+    .dossier-panel {
+        padding: 2rem;
+    }
+
+    .hero-title {
+        font-size: 5rem;
+    }
 }

@@ -4,64 +4,231 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BOO | The Invisible Messenger</title>
-    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&family=Inter:wght@400;700&family=JetBrains+Mono&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --boo-bg: #070A12;
+            --boo-accent: #4F6DF5;
+            --boo-text: #F4F6FF;
+            --boo-border: rgba(255,255,255,0.1);
+        }
+        body {
+            background-color: var(--boo-bg);
+            color: var(--boo-text);
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+        }
+        .font-display { font-family: 'Space Grotesk', sans-serif; }
+        .font-mono { font-family: 'JetBrains Mono', monospace; }
+        
+        /* Grain Overlay */
+        .grain {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0.03;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--boo-border);
+            transition: all 0.3s ease;
+        }
+        .glass-card:hover {
+            border-color: var(--boo-accent);
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .btn-glow {
+            box-shadow: 0 0 20px rgba(79, 109, 245, 0.2);
+        }
+        .btn-glow:hover {
+            box-shadow: 0 0 40px rgba(79, 109, 245, 0.5);
+        }
+
+        /* Lang Button Active Style */
+        .lang-active {
+            color: var(--boo-accent);
+            border-bottom: 2px solid var(--boo-accent);
+        }
+    </style>
 </head>
-<body>
+<body class="antialiased">
+    <div class="grain"></div>
 
-    <div class="aurora-bg"></div>
-    
-    <!-- Spline 3D Background -->
-    <div id="spline-container">
-        <script type="module" src="https://unpkg.com/@splinetool/viewer@1.3.1/build/spline-viewer.js"></script>
-        <spline-viewer url="https://prod.spline.design/i9-9S9nscCstKioU/scene.splinecode"></spline-viewer>
-    </div>
-
-    <nav>
-        <img src="logo.png" alt="BOO Icon" class="brand-icon">
-        <div class="lang-switcher">
-            <button class="lang-btn active" onclick="setLang('pt')">PT</button>
-            <button class="lang-btn" onclick="setLang('en')">EN</button>
-            <button class="lang-btn" onclick="setLang('es')">ES</button>
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full z-50 border-b border-white/5 bg-[#070A12]/80 backdrop-blur-md">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <img src="logo.webp" alt="BOO" class="w-10 h-10 grayscale hover:grayscale-0 transition-all">
+                <span class="font-display font-bold text-2xl tracking-tighter">BOO</span>
+            </div>
+            <div class="flex gap-6 font-mono text-xs font-bold tracking-widest text-white/40">
+                <button onclick="changeLang('pt')" id="lang-pt" class="hover:text-white transition-colors lang-active">PT-BR</button>
+                <button onclick="changeLang('en')" id="lang-en" class="hover:text-white transition-colors">EN</button>
+                <button onclick="changeLang('es')" id="lang-es" class="hover:text-white transition-colors">ES</button>
+            </div>
         </div>
     </nav>
 
-    <div class="content-wrapper">
-        <h1 class="hero-title">BOO</h1>
+    <!-- Hero -->
+    <section class="min-h-screen flex flex-col items-center justify-center pt-32 px-6 text-center">
+        <div class="inline-block px-3 py-1 border border-blue-500/30 rounded-full text-[10px] font-mono text-blue-400 mb-6 tracking-widest uppercase">Protocolo de Comunicação Não-Rastreável</div>
+        <h1 id="hero-main" class="font-display font-bold text-6xl md:text-8xl lg:text-9xl tracking-[ -0.05em] mb-8 leading-none">Invisível.<br>Descentralizado.</h1>
+        <p id="hero-sub" class="max-w-2xl text-lg md:text-xl text-white/50 mb-12">Mensagens Peer-to-Peer com criptografia de nível paramilitar. Sem servidores, sem metadados, sem rastros.</p>
+        <div class="flex flex-wrap gap-4 justify-center">
+            <a href="https://raw.githubusercontent.com/kbyteinformatica/BOO-Updates/main/BOO-1.2.apk" class="bg-blue-600 hover:bg-blue-500 text-white font-bold py-4 px-10 rounded-lg transition-all btn-glow text-lg translate-y-0 active:scale-95" id="cta-download">BAIXAR BOO v1.2</a>
+            <a href="#manifesto" class="border border-white/10 hover:bg-white/5 py-4 px-10 rounded-lg transition-all text-lg" id="cta-read">LER MANIFESTO</a>
+        </div>
+    </section>
+
+    <!-- Bento Grid (Manual Content) -->
+    <section id="manifesto" class="max-w-7xl mx-auto px-6 py-24 grid grid-cols-1 md:grid-cols-3 gap-6">
         
-        <div class="dossier-panel">
-            <p class="manifesto-text" id="manifesto-hook">
-                Privacidade absoluta. Anonimato implacável. Criptografia de nível militar.
-            </p>
-
-            <div class="feature-grid">
-                <div class="feature-item">
-                    <h4 id="label-security">Segurança</h4>
-                    <h3 id="title-security">P2P Real</h3>
-                    <p id="desc-security">No BOO, o tráfego é Peer-to-Peer. Suas mensagens viajam por um tubo direto (WebRTC) entre dispositivos. Sem nuvens, sem rastros.</p>
-                </div>
-                <div class="feature-item">
-                    <h4 id="label-encryption">Criptografia</h4>
-                    <h3 id="title-encryption">Ed25519 & AES</h3>
-                    <p id="desc-encryption">Cada letra é trancada antes de sair do seu celular. Nem mesmo nós conseguimos ler. Você detém as chaves.</p>
-                </div>
-                <div class="feature-item">
-                    <h4 id="label-identity">Identidade</h4>
-                    <h3 id="title-identity">Só 12 Palavras</h3>
-                    <p id="desc-identity">Sem SMS, e-mail ou telefone. Sua identidade é baseada em uma frase semente (BIP-39). Pura matemática, zero burocracia.</p>
-                </div>
-            </div>
-
-            <div class="download-zone">
-                <a href="https://raw.githubusercontent.com/kbyteinformatica/BOO-Updates/main/BOO-1.2.apk" class="btn-main" id="btn-download">DOWNLOAD v1.2</a>
-                <p style="margin-top: 1.5rem; color: var(--text-dim); font-size: 0.8rem;" id="footer-note">Comprometido com a liberdade de comunicação.</p>
+        <!-- P2P Architecture -->
+        <div class="glass-card p-10 rounded-3xl md:col-span-2">
+            <div class="font-mono text-blue-500 text-xs mb-4 tracking-[0.2em]">01 / SEGURANÇA ESTRUTURAL</div>
+            <h3 class="font-display text-4xl font-bold mb-6" id="card1-title">O Fim do Intermediário</h3>
+            <p class="text-white/60 text-lg leading-relaxed mb-6" id="card1-text">Diferente de apps "seguros" que usam nuvens, o BOO viaja por túneis WebRTC diretos entre os dispositivos. Nenhum bit de sua conversa toca em um servidor centralizado.</p>
+            <div class="flex gap-4 font-mono text-[10px] text-white/30 uppercase">
+                <span>#P2P_ONLY</span>
+                <span>#WEBRTC_NATIVE</span>
+                <span>#ZERO_SERVER</span>
             </div>
         </div>
-    </div>
 
-    <footer>
-        <p>BOO © 2026</p>
+        <!-- Encryption Specs -->
+        <div class="glass-card p-10 rounded-3xl">
+            <div class="font-mono text-blue-500 text-xs mb-4 tracking-[0.2em]">02 / CRIPTOGRAFIA</div>
+            <h3 class="font-display text-4xl font-bold mb-6" id="card2-title">Ed25519 & AES</h3>
+            <p class="text-white/60 text-lg leading-relaxed mb-6" id="card2-text">Chaves de 256 bits geradas localmente. Nem mesmo os desenvolvedores podem ler suas mensagens. Você é o único dono das chaves.</p>
+        </div>
+
+        <!-- Identity -->
+        <div class="glass-card p-10 rounded-3xl">
+            <div class="font-mono text-blue-500 text-xs mb-4 tracking-[0.2em]">03 / IDENTIDADE</div>
+            <h3 class="font-display text-4xl font-bold mb-6" id="card3-title">12 Palavras</h3>
+            <p class="text-white/60 text-lg leading-relaxed mb-6" id="card3-text">Sua conta não é um número de telefone. É uma frase semente BIP-39. Anonimato total por padrão.</p>
+        </div>
+
+        <!-- Tactical / Wipe -->
+        <div class="glass-card p-10 rounded-3xl md:col-span-2">
+            <div class="font-mono text-blue-500 text-xs mb-4 tracking-[0.2em]">04 / PROTOCOLO TÁTICO</div>
+            <h3 class="font-display text-4xl font-bold mb-6" id="card4-title">Dossiê Efêmero</h3>
+            <p class="text-white/60 text-lg leading-relaxed mb-6" id="card4-text">O banco de dados é destruído ao encerrar o app. Mensagens em RAM expiram em 60s. O que acontece no BOO, morre no BOO.</p>
+        </div>
+
+    </section>
+
+    <footer class="py-20 border-t border-white/5 text-center px-6">
+        <div class="max-w-4xl mx-auto">
+            <h2 class="font-display text-3xl font-bold mb-8">Participe da Resistência Digital.</h2>
+            <div class="flex justify-center gap-8 text-white/40 font-mono text-xs uppercase tracking-[0.3em]">
+                <span>BOO v1.2</span>
+                <span>Open Source</span>
+                <span>Privacy Standard</span>
+            </div>
+            <p class="mt-12 text-white/20 text-[10px] uppercase tracking-widest">BOO Messenger Protocol © 2026</p>
+        </div>
     </footer>
 
-    <script src="script.js"></script>
+    <script>
+        const content = {
+            pt: {
+                heroMain: "Invisível.<br>Descentralizado.",
+                heroSub: "Mensagens Peer-to-Peer com criptografia de nível paramilitar. Sem servidores, sem metadados, sem rastros.",
+                ctaDownload: "BAIXAR BOO v1.2",
+                ctaRead: "LER MANIFESTO",
+                card1Title: "O Fim do Intermediário",
+                card1Text: "Diferente de apps 'seguros' que usam nuvens, o BOO viaja por túneis WebRTC diretos entre os dispositivos. Nenhum bit de sua conversa toca em um servidor centralizado.",
+                card2Title: "Ed25519 & AES",
+                card2Text: "Chaves de 256 bits geradas localmente. Nem mesmo os desenvolvedores podem ler suas mensagens. Você é o único dono das chaves.",
+                card3Title: "12 Palavras",
+                card3Text: "Sua conta não é um número de telefone. É uma frase semente BIP-39. Anonimato total por padrão.",
+                card4Title: "Dossiê Efêmero",
+                card4Text: "O banco de dados é destruído ao encerrar o app. Mensagens em RAM expiram em 60s. O que acontece no BOO, morre no BOO."
+            },
+            en: {
+                heroMain: "Invisible.<br>Decentralized.",
+                heroSub: "Peer-to-Peer messaging with paramilitary-grade encryption. No servers, no metadata, no traces.",
+                ctaDownload: "DOWNLOAD BOO v1.2",
+                ctaRead: "READ MANIFESTO",
+                card1Title: "The End of the Middleman",
+                card1Text: "Unlike 'secure' cloud-based apps, BOO travels through direct WebRTC tunnels between devices. Not a single bit of your chat hits a centralized server.",
+                card2Title: "Ed25519 & AES",
+                card2Text: "Locally generated 256-bit keys. Not even the developers can read your messages. You are the sole owner of your keys.",
+                card3Title: "12 Words",
+                card3Text: "Your account isn't a phone number. It's a BIP-39 seed phrase. Total anonymity by default.",
+                card4Title: "Ephemeral Dossier",
+                card4Text: "The database is destroyed upon app closure. RAM messages expire in 60s. What happens in BOO, stays in BOO."
+            },
+            es: {
+                heroMain: "Invisible.<br>Descentralizado.",
+                heroSub: "Mensajes Peer-to-Peer con cifrado de nivel paramilitar. Sin servidores, sin metadatos, sin rastros.",
+                ctaDownload: "DESCARGAR BOO v1.2",
+                ctaRead: "LEER MANIFIESTO",
+                card1Title: "El Fin del Intermediario",
+                card1Text: "A diferencia de las apps 'seguras' basadas en la nube, BOO viaja a través de túneles WebRTC directos entre dispositivos. Ningún bit de su charla toca un servidor centralizado.",
+                card2Title: "Ed25519 y AES",
+                card2Text: "Llaves de 256 bits generadas localmente. Ni siquiera los desarrolladores pueden leer sus mensajes. Usted es el único dueño de sus llaves.",
+                card3Title: "12 Palabras",
+                card3Text: "Tu cuenta no es un número de teléfono. Es una frase semilla BIP-39. Anonimato total por defecto.",
+                card4Title: "Dossier Efímero",
+                card4Text: "La base de datos se destruye al cerrar la app. Los mensajes en RAM expiran en 60s. Lo que pasa en BOO, se queda en BOO."
+            }
+        };
+
+        function changeLang(lang) {
+            const data = content[lang];
+            document.getElementById('hero-main').innerHTML = data.heroMain;
+            document.getElementById('hero-sub').innerText = data.heroSub;
+            document.getElementById('cta-download').innerText = data.ctaDownload;
+            document.getElementById('cta-read').innerText = data.ctaRead;
+            document.getElementById('card1-title').innerText = data.card1Title;
+            document.getElementById('card1-text').innerText = data.card1Text;
+            document.getElementById('card2-title').innerText = data.card2Title;
+            document.getElementById('card2-text').innerText = data.card2Text;
+            document.getElementById('card3-title').innerText = data.card3Title;
+            document.getElementById('card3-text').innerText = data.card3Text;
+            document.getElementById('card4-title').innerText = data.card4Title;
+            document.getElementById('card4-text').innerText = data.card4Text;
+
+            // Highlight button
+            document.querySelectorAll('button').forEach(b => b.classList.remove('lang-active'));
+            document.getElementById(`lang-${lang}`).classList.add('lang-active');
+        }
+
+        // GSAP Animations
+        document.addEventListener('DOMContentLoaded', () => {
+            gsap.registerPlugin(ScrollTrigger);
+
+            gsap.from('.hero > *', {
+                y: 50,
+                opacity: 0,
+                stagger: 0.2,
+                duration: 1.2,
+                ease: "power4.out"
+            });
+
+            gsap.from('.glass-card', {
+                scrollTrigger: {
+                    trigger: '#manifesto',
+                    start: 'top 80%',
+                    toggleActions: 'play none none none'
+                },
+                y: 100,
+                opacity: 0,
+                stagger: 0.15,
+                duration: 1,
+                ease: "power3.out"
+            });
+        });
+    </script>
 </body>
 </html>
