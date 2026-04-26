@@ -6,7 +6,8 @@
     "sha256": "B02138DC682A9F97F02E231265F30576DDF82CC9C8363C76CBE6FE1FEB2D3A6C"
   },
   "desktop": {
-    "version": "1.0.0",
-    "download_url": "https://raw.githubusercontent.com/kbyteinformatica/BOO-Updates/main/BOO-1.0.0.msi"
+    "version": "1.1.0",
+    "download_url": "https://raw.githubusercontent.com/kbyteinformatica/BOO-Updates/main/BOO-1.1.0.msi",
+    "sha256": "30CB036453D7E42E01ECA1D4DAC7A96DDC9743AF13BC06BA6F805FC9343D0E34"
   }
 }
