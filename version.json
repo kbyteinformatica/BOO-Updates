@@ -1,13 +1,13 @@
 {
   "android": {
-    "version_code": 105,
-    "version_name": "1.0.5",
-    "download_url": "https://boop2p.com/_ghost_bin_/BOO-1.0.5.apk",
-    "sha256": "bfb43391a0d205c72d609c19a661db7a495ab00c201dedcf5dd95e552aec685b"
+    "version_code": 106,
+    "version_name": "1.0.6",
+    "download_url": "https://boop2p.com/_ghost_bin_/BOO-1.0.6.apk",
+    "sha256": "dd484895274aaedf85920bfa3626d80e76d99c440dc4f2e4497497aecdcd71bb"
   },
   "desktop": {
-    "version": "1.0.5",
-    "download_url": "https://boop2p.com/_ghost_bin_/BOO-1.0.5.msi",
-    "sha256": "b5034951f368d448364a9a914f3e0c8bd4bc71f030ccbe626a8a03f2ae4a0a1d"
+    "version": "1.0.6",
+    "download_url": "https://boop2p.com/_ghost_bin_/BOO-1.0.6.msi",
+    "sha256": "b13ff54aa4f0b5ec4cdce8ee7d5914d3aa2a21326d493981840f42de8db9466a"
   }
 }
