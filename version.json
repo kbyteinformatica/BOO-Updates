@@ -3,11 +3,11 @@
     "version_code": 108,
     "version_name": "1.0.8",
     "download_url": "https://boop2p.com/_ghost_bin_/BOO-1.0.8.apk",
-    "sha256": "c3b4faf928751f5b42372f4c79592419b55e816310e8d471b359b2450fcea9b1"
+    "sha256": "190278bd540c1d229b77a7300d2ba68eddf1217f469d65e43c75c24248823c3d"
   },
   "desktop": {
     "version": "1.0.8",
     "download_url": "https://boop2p.com/_ghost_bin_/BOO-1.0.8.msi",
-    "sha256": "4fcf85342d444947b6cdd01e27cb1e48126e6c86056528a640a66bfe43cf3313"
+    "sha256": "870292815468c6809f3f335188f09fcb37b98843ca597d0a8d4231a3eb280012"
   }
 }
